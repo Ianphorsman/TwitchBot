@@ -4,6 +4,7 @@ class HomeController < ApplicationController
 
   def index
     start_twitch_client
+    @twitch_client.get_video_frame_from_stream('disguisedtoasths')
   end
 
 end

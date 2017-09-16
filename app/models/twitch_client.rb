@@ -28,7 +28,33 @@ class TwitchClient #< ApplicationRecord
     p self.access_token
   end
 
+  def stream_from stream_name
+    while true do
+      # set interval for now
+      # use ActionCable to get stream data
+      # oh nevermind, that'll never happen
+      self.get_video_frame_from_stream(stream_name)
+    end
+  end
+
+  # look at twitch embedding video in iframe
+
+  def get_video_frame_from_stream stream
+    url = self.twitch.base_url + "/streams/#{stream}"
+    response = self.twitch.adapter.request('get', url, :headers => {
+      'Client-ID' => self.client_id
+    })
+    p response
+  end
+
   def say
+  end
+
+
+  private
+
+  def add_frame_to_queue response
+    self.video_frame_queue << response
   end
 
 
